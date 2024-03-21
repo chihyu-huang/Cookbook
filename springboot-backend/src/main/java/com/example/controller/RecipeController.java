@@ -10,8 +10,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-//@CrossOrigin("*")
 @RestController
+@CrossOrigin(origins = "http://localhost:5173")
+
 @RequestMapping("/api/recipes")
 public class RecipeController {
 
@@ -24,7 +25,7 @@ public class RecipeController {
     }
 
     // build create recipe REST API
-    @PostMapping
+    @PostMapping("/recipes")
     public Recipe createRecipe(@RequestBody Recipe recipe) {
         return recipeRepository.save(recipe);
     }
