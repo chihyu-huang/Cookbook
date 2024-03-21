@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookbook - Recipes</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+<body>
+<h1>Recipes</h1>
+<ul>
+    <li th:each="recipe : ${recipes}">
+        <h2 th:text="${recipe.name}"></h2>
+        <p th:text="${recipe.description}"></p>
+        <p><strong>Time Required:</strong> <span th:text="${recipe.timeRequired}"></span></p>
+        <p><strong>Meal Type:</strong> <span th:text="${recipe.mealType}"></span></p>
+    </li>
+</ul>
+</body>
+</html>
