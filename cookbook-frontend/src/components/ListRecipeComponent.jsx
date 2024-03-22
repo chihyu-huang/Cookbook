@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import RecipeService from '../services/RecipeService';
 import RecipeDetailsComponent from './RecipeDetailsComponent'; // Import the details component
+import { Link } from 'react-router-dom';
 // import { Link } from 'react-router-dom';
 
 const ListRecipeComponent = () => {
@@ -29,7 +30,7 @@ const ListRecipeComponent = () => {
     return (
         <div className='container'>
             <h2 className='text-center'>Recipes</h2>
-            
+            <Link to='/add-recipe' className='btn btn-primary'>Add Recipe</Link>
             <table className='table table-bordered table-striped'>
                 <thead>
                     <tr>

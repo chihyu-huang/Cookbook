@@ -17,6 +17,7 @@
     "antd": "^5.15.3",
     "axios": "^1.6.8",
     "bootstrap": "^5.3.3",
+    "cors": "^2.8.5",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.4",
     "react": "^18.2.0",
