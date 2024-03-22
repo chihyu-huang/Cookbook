@@ -1,23 +1,30 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
+import { BrowserRouter as Router, Route, Switch, Link, useParams } from 'react-router-dom';
 
-// import * as React from "react";
-// import ReactDOM from "react-dom/client";
-// import { BrowserRouter, Routes, Route } from "react-router-dom";
+import ReactDOM from "react-dom/client";
 
 
 import './index.css';
 import App from './App';
 // import reportWebVitals from './reportWebVitals';
-import 'bootstrap/dist/css/bootstrap.min.css'
+// import 'bootstrap/dist/css/bootstrap.min.css'
+
+
+// const router = createBrowserRouter([
+//   {
+//     path: "/recipes",
+//     element: <App />,
+//   },
+// ]);
 
 
 
-createRoot(document.getElementById('root')).render(
-  // ReactDOM.createRoot(document.getElementById("root")).render(
+// createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
+    {/* <RouterProvider router={router} /> */}
     <App />
-
   </React.StrictMode>
 );
 
