@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import RecipeService from '../services/RecipeService';
-import RecipeDetailsComponent from './RecipeDetailsComponent'; // Import the details component
 import { Link } from 'react-router-dom';
-// import { Link } from 'react-router-dom';
 
 const ListRecipeComponent = () => {
     const [recipes, setRecipes] = useState([]);
-    const [selectedRecipe, setSelectedRecipe] = useState(null); // State to track selected recipe
 
     useEffect(() => {
         getAllRecipes();
@@ -20,11 +17,6 @@ const ListRecipeComponent = () => {
             .catch((error) => {
                 console.log(error);
             });
-    };
-
-    // Function to handle recipe click
-    const handleRecipeClick = (recipe) => {
-        setSelectedRecipe(recipe);
     };
 
     return (
@@ -43,14 +35,12 @@ const ListRecipeComponent = () => {
                 </thead>
                 <tbody>
                     {recipes.map((recipe) => (
-                        <tr key={recipe.id} onClick={() => handleRecipeClick(recipe)}>
-                            {/* Attach click event handler */}
-                            <td>{recipe.name}</td>
+                        <tr key={recipe.id}>
+                            <td><Link to={`/recipes/${recipe.id}`}>{recipe.name}</Link></td>
                             <td>{recipe.description}</td>
                             <td>{recipe.timeRequired}</td>
                             <td>{recipe.mealType}</td>
                             <td>
-                                {/* Render ingredients as a list */}
                                 <ul>
                                     {recipe.ingredients.map((ingredient) => (
                                         <li key={ingredient.ingredient_id}>
@@ -63,8 +53,6 @@ const ListRecipeComponent = () => {
                     ))}
                 </tbody>
             </table>
-            {/* Render RecipeDetailsComponent if a recipe is selected */}
-            {selectedRecipe && <RecipeDetailsComponent recipe={selectedRecipe} />}
         </div>
     );
 };
