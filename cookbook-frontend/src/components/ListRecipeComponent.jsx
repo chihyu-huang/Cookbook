@@ -31,6 +31,7 @@ const ListRecipeComponent = () => {
                         <th>Time Required</th>
                         <th>Meal Type</th>
                         <th>Ingredients</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -48,6 +49,11 @@ const ListRecipeComponent = () => {
                                         </li>
                                     ))}
                                 </ul>
+                            </td>
+                            <td>
+                                <Link className="btn btn-info" to={'/edit-recipe/${recipe.id}'}>Update</Link>
+                                <button className = "btn btn-danger" onClick = {() => deleteRecipe(recipe.id)}
+                                    style = {{marginLeft:"10px"}}> Delete</button>
                             </td>
                         </tr>
                     ))}

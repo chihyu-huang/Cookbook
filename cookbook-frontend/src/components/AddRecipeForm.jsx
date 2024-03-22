@@ -7,9 +7,26 @@ const AddRecipeForm = ({ onAdd }) => {
     const [description, setDescription] = useState('');
     const [timeRequired, setTimeRequired] = useState('');
     const [mealType, setMealType] = useState('');
-    const [ingredients, setIngredients] = useState([]);
+    const [ingredients, setIngredients] = useState([{ name: '', amount: '' }]);
     const { id } = useParams();
     const navigate = useNavigate();
+
+    const handleIngredientChange = (index, event) => {
+        const { name, value } = event.target;
+        const list = [...ingredients];
+        list[index][name] = value;
+        setIngredients(list);
+    };
+
+    const handleAddIngredient = () => {
+        setIngredients([...ingredients, { name: '', amount: '' }]);
+    };
+
+    const handleRemoveIngredient = (index) => {
+        const list = [...ingredients];
+        list.splice(index, 1);
+        setIngredients(list);
+    };
 
     const saveOrUpdateRecipe = (e) => {
         e.preventDefault();
@@ -17,7 +34,7 @@ const AddRecipeForm = ({ onAdd }) => {
 
         if (id) {
             RecipeService.updateRecipe(id, recipe)
-                .then((response) => {
+                .then(() => {
                     navigate.push('/recipes');
                 })
                 .catch(error => {
@@ -25,8 +42,7 @@ const AddRecipeForm = ({ onAdd }) => {
                 });
         } else {
             RecipeService.addRecipe(recipe)
-                .then((response) => {
-                    console.log(response.data);
+                .then(() => {
                     navigate.push('/recipes');
                 })
                 .catch(error => {
@@ -39,7 +55,7 @@ const AddRecipeForm = ({ onAdd }) => {
         if (id) {
             RecipeService.getRecipeById(id)
                 .then(response => {
-                    // const { name, description, timeRequired, mealType, ingredients } = response.data;
+                    const { name, description, timeRequired, mealType, ingredients } = response.data;
                     setName(name);
                     setDescription(description);
                     setTimeRequired(timeRequired);
@@ -88,26 +104,73 @@ const AddRecipeForm = ({ onAdd }) => {
                                     ></textarea>
                                 </div>
                                 <div className="form-group mb-2">
-                                    <label className="form-label">Time Required:</label>
+                                    <label className="form-label">Time Required (minutes):</label>
                                     <input
                                         type="text"
                                         className="form-control"
                                         name='timeRequired'
                                         placeholder="Time Required"
                                         value={timeRequired}
-                                        onChange={(e) => setTimeRequired(e.target.value)}
+                                        onChange={(e) => {
+                                            const input = e.target.value;
+                                            // Validate if input is a number
+                                            if (!isNaN(input)) {
+                                                setTimeRequired(input);
+                                            }
+                                        }}
                                     />
                                 </div>
+
+                                <div className="form-group mb-2">
+                                    <label className="form-label">Ingredients:</label>
+                                    {ingredients.map((ingredient, index) => (
+                                        <div key={index} className="ingredient-row">
+                                            <input
+                                                type="text"
+                                                className="form-control mr-2"
+                                                placeholder="Ingredient Name"
+                                                name="name"
+                                                value={ingredient.name}
+                                                onChange={(event) => handleIngredientChange(index, event)}
+                                            />
+                                            <input
+                                                type="text"
+                                                className="form-control mr-2"
+                                                placeholder="Amount"
+                                                name="amount"
+                                                value={ingredient.amount}
+                                                onChange={(event) => handleIngredientChange(index, event)}
+                                            />
+                                            {index > 0 && (
+                                                <button
+                                                    type="button"
+                                                    className="btn btn-danger"
+                                                    onClick={() => handleRemoveIngredient(index)}
+                                                >
+                                                    Remove
+                                                </button>
+                                            )}
+                                        </div>
+                                    ))}
+                                    <button type="button" className="btn btn-primary" onClick={handleAddIngredient}>
+                                        Add Ingredient
+                                    </button>
+                                </div>
+
                                 <div className="form-group mb-2">
                                     <label className="form-label">Meal Type:</label>
-                                    <input
-                                        type="text"
+                                    <select
                                         className="form-control"
                                         name='mealType'
-                                        placeholder="Meal Type"
                                         value={mealType}
                                         onChange={(e) => setMealType(e.target.value)}
-                                    />
+                                    >
+                                        <option value="">Select Meal Type</option>
+                                        <option value="breakfast">Breakfast</option>
+                                        <option value="lunch">Lunch</option>
+                                        <option value="dinner">Dinner</option>
+                                        <option value="other">Other</option>
+                                    </select>
                                 </div>
                                 <button className="btn btn-success" onClick = { (e) => saveOrUpdateRecipe(e) }>
                                     {id ? 'Update Recipe' : 'Add Recipe'}

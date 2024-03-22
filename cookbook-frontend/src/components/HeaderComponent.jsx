@@ -6,7 +6,7 @@ const HeaderComponent = () => {
             <header>
                 <nav className = "navbar navbar-expand-md navbar-dark bg-dark">
                     <div>
-                        <a href = "" className = "navbar-brand">
+                        <a href = "/recipes" className = "navbar-brand" >
                             Cookbook App
                         </a>
                     </div>

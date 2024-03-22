@@ -15,7 +15,7 @@ class RecipeService {
 
     // Retrieve a single recipe by its ID
     getRecipeById(recipeId) {
-        return axios.get(`${API_URL}/${recipeId}`);
+        return axios.get(`${API_URL}+'/'+${recipeId}`);
     }
 
     // Update a recipe by its ID

@@ -14,6 +14,7 @@ const routes = createBrowserRouter([
   { path: '/recipes', element: <ListRecipeComponent /> },
   { path: '/recipes/:id', element: <RecipeDetailsComponent /> },
   { path: '/add-recipe', element: <AddRecipeForm /> },
+  { path: '/edit-recipe/:id', element: <AddRecipeForm /> },
 ]);
 
 function App() {
