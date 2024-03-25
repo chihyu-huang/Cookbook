@@ -16,6 +16,11 @@ const RecipeDetailsComponent = () => {
             });
     }, [id]);
 
+    const deleteRecipe = (id) => {
+        // Implement delete logic here
+        console.log("Deleting recipe with ID:", id);
+    };
+
     if (!recipe) {
         return <div>Loading...</div>;
     }
@@ -25,6 +30,9 @@ const RecipeDetailsComponent = () => {
             <h2>Recipe Details</h2>
             <table className="table">
                 <tbody>
+                    <Link className="btn btn-info" to={`/edit-recipe/${recipe.id}`}>Update</Link>
+                    <button className="btn btn-danger" onClick={() => deleteRecipe(recipe.id)} style={{ marginLeft: "10px" }}>Delete</button>
+
                     <tr>
                         <th>Name:</th>
                         <td>{recipe.name}</td>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import RecipeService from '../services/RecipeService';
 
-const AddRecipeForm = ({ onAdd }) => {
+const AddRecipeForm = () => {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [timeRequired, setTimeRequired] = useState('');
@@ -30,23 +30,29 @@ const AddRecipeForm = ({ onAdd }) => {
 
     const saveOrUpdateRecipe = (e) => {
         e.preventDefault();
-        const recipe = { name, description, timeRequired, mealType, ingredients };
+        const recipe = { name, description, timeRequired, ingredients, mealType };
 
         if (id) {
             RecipeService.updateRecipe(id, recipe)
                 .then(() => {
-                    navigate.push('/recipes');
+                    navigate(`/recipes/${id}`);
                 })
                 .catch(error => {
-                    console.log(error);
+                    console.log('Error updating recipe:', error);
+                    // Display error message to the user
+                    alert('Failed to update recipe. Please try again later.');
+                
                 });
         } else {
             RecipeService.addRecipe(recipe)
                 .then(() => {
-                    navigate.push('/recipes');
+                    navigate('/recipes');
                 })
                 .catch(error => {
-                    console.log(error);
+                    console.log('Error adding recipe:', error);
+                    // Display error message to the user
+                    alert('Failed to add recipe. Please try again later.');
+                
                 });
         }
     };
@@ -66,7 +72,7 @@ const AddRecipeForm = ({ onAdd }) => {
                     console.log(error);
                 });
         }
-    }, []);
+    }, [id]);
 
     const title = () => {
         return id ? <h2 className='text-center'>Update Recipe</h2> : <h2 className='text-center'>Add Recipe</h2>;
@@ -169,13 +175,20 @@ const AddRecipeForm = ({ onAdd }) => {
                                         <option value="breakfast">Breakfast</option>
                                         <option value="lunch">Lunch</option>
                                         <option value="dinner">Dinner</option>
+                                        <option value="dinner">Dessert</option>
                                         <option value="other">Other</option>
                                     </select>
                                 </div>
-                                <button className="btn btn-success" onClick = { (e) => saveOrUpdateRecipe(e) }>
-                                    {id ? 'Update Recipe' : 'Add Recipe'}
-                                </button>
-                                <Link to="/recipes" className="btn btn-danger">Cancel</Link>
+                                <div className="form-group mb-2">
+                                    <div>
+                                        <button className="btn btn-success" onClick={saveOrUpdateRecipe}>
+                                            {id ? 'Update Recipe' : 'Add Recipe'}
+                                        </button>
+                                        <Link to={id ? `/recipes/${id}` : '/recipes'} className="btn btn-danger">Cancel</Link>
+                                    </div>
+                                </div>
+
+                                
                             </form>
                         </div>
                     </div>
@@ -186,108 +199,3 @@ const AddRecipeForm = ({ onAdd }) => {
 };
 
 export default AddRecipeForm;
-
-
-
-
-
-
-// AddRecipeForm.jsx
-// import React, { useState } from 'react';
-// import RecipeService from '../services/RecipeService';
-
-// const AddRecipeForm = ({ onAdd }) => {
-//   const [formData, setFormData] = useState({
-//     name: '',
-//     description: '',
-//     timeRequired: '',
-//     mealType: '',
-//     ingredients: [],
-//   });
-
-//   const handleInputChange = (e) => {
-//     const { name, value } = e.target;
-//     setFormData((prevData) => ({
-//       ...prevData,
-//       [name]: value,
-//     }));
-//   };
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     try {
-//       const response = await RecipeService.addRecipe(formData);
-//       onAdd(response.data); // Add the new recipe to the list
-//       // Reset the form
-//       setFormData({
-//         name: '',
-//         description: '',
-//         timeRequired: '',
-//         mealType: '',
-//         ingredients: [],
-//       });
-//     } catch (error) {
-//       console.error('Error adding recipe:', error);
-//     }
-//   };
-
-//   // Render the form with input fields for recipe details
-
-//   return (
-//     <div className='container'>
-//       <h2 className='text-center'>Add A New Recipe</h2>
-//       <form onSubmit={handleSubmit}>
-//         <div className='form-group'>
-//           <label>Recipe Name:</label>
-//           <input
-//             type='text'
-//             name='name'
-//             value={formData.name}
-//             onChange={handleInputChange}
-//             className='form-control'
-//             required
-//           />
-//         </div>
-//         <div className='form-group'>
-//           <label>Description:</label>
-//           <textarea
-//             name='description'
-//             value={formData.description}
-//             onChange={handleInputChange}
-//             className='form-control'
-//             required
-//           ></textarea>
-//         </div>
-//         <div className='form-group'>
-//           <label>Time Required:</label>
-//           <input
-//             type='text'
-//             name='timeRequired'
-//             value={formData.timeRequired}
-//             onChange={handleInputChange}
-//             className='form-control'
-//             required
-//           />
-//         </div>
-//         <div className='form-group'>
-//           <label>Meal Type:</label>
-//           <input
-//             type='text'
-//             name='mealType'
-//             value={formData.mealType}
-//             onChange={handleInputChange}
-//             className='form-control'
-//             required
-//           />
-//         </div>
-//         <br></br>
-//         <button type='submit' className='btn btn-success' onClick={(e) => handleSubmit(e)}>
-//           Add Recipe
-//         </button>
-//       </form>
-//     </div>
-//   );
-  
-// };
-
-// export default AddRecipeForm;

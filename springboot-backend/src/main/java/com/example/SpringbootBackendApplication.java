@@ -78,5 +78,54 @@ public class SpringbootBackendApplication implements CommandLineRunner {
 //
 //		pastaCarbonara.setIngredients(Arrays.asList(pasta, bacon, eggs));
 //		recipeRepository.save(pastaCarbonara);
+
+		// Recipe 1: Grilled Chicken Salad
+		Recipe grilledChickenSalad = new Recipe();
+		grilledChickenSalad.setName("Grilled Chicken Salad");
+		grilledChickenSalad.setDescription("Healthy and delicious grilled chicken salad");
+		grilledChickenSalad.setTimeRequired("20 minutes");
+		grilledChickenSalad.setMealType("Lunch");
+
+// Ingredients for Grilled Chicken Salad
+		Ingredient chicken = new Ingredient();
+		chicken.setName("Chicken");
+		chicken.setAmount("200g");
+		chicken.setRecipe(grilledChickenSalad);
+
+		Ingredient lettuce = new Ingredient();
+		lettuce.setName("Lettuce");
+		lettuce.setAmount("1 head");
+		lettuce.setRecipe(grilledChickenSalad);
+
+		Ingredient tomato = new Ingredient();
+		tomato.setName("Tomato");
+		tomato.setAmount("2");
+		tomato.setRecipe(grilledChickenSalad);
+
+		grilledChickenSalad.setIngredients(Arrays.asList(chicken, lettuce, tomato));
+		recipeRepository.save(grilledChickenSalad);
+
+// Recipe 2: Chocolate Cake
+		Recipe chocolateCake = new Recipe();
+		chocolateCake.setName("Chocolate Cake");
+		chocolateCake.setDescription("Decadent chocolate cake with frosting");
+		chocolateCake.setTimeRequired("1 hour");
+		chocolateCake.setMealType("Dessert");
+
+// Ingredients for Chocolate Cake
+		Ingredient flour = new Ingredient();
+		flour.setName("Flour");
+		flour.setAmount("250g");
+		flour.setRecipe(chocolateCake);
+
+		Ingredient cocoaPowder = new Ingredient();
+		cocoaPowder.setName("Cocoa Powder");
+		cocoaPowder.setAmount("50g");
+		cocoaPowder.setRecipe(chocolateCake);
+
+		chocolateCake.setIngredients(Arrays.asList(flour, cocoaPowder));
+		recipeRepository.save(chocolateCake);
+
+
 	}
 }
