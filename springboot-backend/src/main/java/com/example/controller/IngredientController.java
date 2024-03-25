@@ -45,7 +45,7 @@ public class IngredientController {
 
         updateIngredient.setName(ingredientDetails.getName());
         updateIngredient.setAmount(ingredientDetails.getAmount());
-        // You may include other properties to update as needed
+
 
         ingredientRepository.save(updateIngredient);
 
