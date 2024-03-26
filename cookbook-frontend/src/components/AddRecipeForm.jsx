@@ -22,11 +22,16 @@ const AddRecipeForm = () => {
         setIngredients([...ingredients, { name: '', amount: '' }]);
     };
 
+    
     const handleRemoveIngredient = (index) => {
-        const list = [...ingredients];
-        list.splice(index, 1);
-        setIngredients(list);
+        console.log("Removing ingredient at index:", index);
+        const updatedIngredients = ingredients.filter((_, i) => i !== index);
+        console.log("Updated ingredients:", updatedIngredients);
+        setIngredients(updatedIngredients);
     };
+    
+    
+    
 
     const saveOrUpdateRecipe = (e) => {
         e.preventDefault();
@@ -36,6 +41,8 @@ const AddRecipeForm = () => {
             RecipeService.updateRecipe(id, recipe)
                 .then(() => {
                     navigate(`/recipes/${id}`);
+                    console.log('Recipe updated successfully', recipe);
+                    
                 })
                 .catch(error => {
                     console.log('Error updating recipe:', error);
@@ -136,16 +143,18 @@ const AddRecipeForm = () => {
                                                 className="form-control mr-2"
                                                 placeholder="Ingredient Name"
                                                 name="name"
-                                                value={ingredient.name}
+                                                value={ingredient.name || ''}
                                                 onChange={(event) => handleIngredientChange(index, event)}
+                                                required
                                             />
                                             <input
                                                 type="text"
                                                 className="form-control mr-2"
                                                 placeholder="Amount"
                                                 name="amount"
-                                                value={ingredient.amount}
+                                                value={ingredient.amount || ''}
                                                 onChange={(event) => handleIngredientChange(index, event)}
+                                                required
                                             />
                                             {index > 0 && (
                                                 <button

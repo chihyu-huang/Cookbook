@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import RecipeService from '../services/RecipeService';
-import { useParams, Link } from 'react-router-dom'; // Import useParams and Link
+import { useParams, Link } from 'react-router-dom';
 
 const RecipeDetailsComponent = () => {
-    const { id } = useParams(); // Use useParams hook to get the recipe ID from URL params
+    const { id } = useParams();
     const [recipe, setRecipe] = useState(null);
 
     useEffect(() => {
@@ -17,22 +17,32 @@ const RecipeDetailsComponent = () => {
     }, [id]);
 
     const deleteRecipe = (id) => {
-        // Implement delete logic here
         console.log("Deleting recipe with ID:", id);
     };
 
+
     if (!recipe) {
-        return <div>Loading...</div>;
+        return (
+            <div>
+                This recipe does not exist.
+                <br />
+                <Link to="/recipes" className="btn btn-primary">Back to Recipes</Link>
+            </div>
+        );
     }
+    
 
     return (
         <div className='container'>
             <h2>Recipe Details</h2>
             <table className="table">
                 <tbody>
-                    <Link className="btn btn-info" to={`/edit-recipe/${recipe.id}`}>Update</Link>
-                    <button className="btn btn-danger" onClick={() => deleteRecipe(recipe.id)} style={{ marginLeft: "10px" }}>Delete</button>
-
+                    <tr>
+                        <td>
+                            <Link className="btn btn-info" to={`/edit-recipe/${recipe.id}`}>Update</Link>
+                            <button className="btn btn-danger" onClick={() => deleteRecipe(recipe.id)} style={{ marginLeft: "10px" }}>Delete</button>
+                        </td>
+                    </tr>
                     <tr>
                         <th>Name:</th>
                         <td>{recipe.name}</td>

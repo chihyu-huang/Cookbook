@@ -52,13 +52,29 @@ public class IngredientController {
         return ResponseEntity.ok(updateIngredient);
     }
 
+//    @DeleteMapping("{id}")
+//    public ResponseEntity<HttpStatus> deleteIngredient(@PathVariable long id) {
+//        Ingredient ingredient = ingredientRepository.findById(id)
+//                .orElseThrow(() -> new ResourceNotFoundException("Ingredient not found with id: " + id));
+//
+//        ingredientRepository.delete(ingredient);
+//
+//        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//    }
+
     @DeleteMapping("{id}")
     public ResponseEntity<HttpStatus> deleteIngredient(@PathVariable long id) {
         Ingredient ingredient = ingredientRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Ingredient not found with id: " + id));
 
+        // Check if ingredient is null before attempting deletion
+        if (ingredient == null) {
+            throw new ResourceNotFoundException("Ingredient not found with id: " + id);
+        }
+
         ingredientRepository.delete(ingredient);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
 }
