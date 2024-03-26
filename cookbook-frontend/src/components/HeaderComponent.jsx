@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 const HeaderComponent = () => {
     return (
@@ -9,6 +9,7 @@ const HeaderComponent = () => {
                         <a href = "/recipes" className = "navbar-brand" >
                             Cookbook App
                         </a>
+                        
                     </div>
 
                 </nav>
