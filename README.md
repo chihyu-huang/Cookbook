@@ -39,4 +39,6 @@ Contributions are welcome! If you have any ideas for improvements or new feature
 ## Acknowledgments
 
 - This project was inspired by the need for a simple and intuitive recipe management system.
-- Special thanks to [chihyu-huang](https://github.com/chihyu-huang) for the initial project structure and inspiration.
+
+Author:
+Cookbook was created by Chih-Yu Huang. You can find more of his work on GitHub: [chihyu-huang](https://github.com/chihyu-huang)
