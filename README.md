@@ -13,7 +13,7 @@ Cookbook is a web application designed to help users manage and share their reci
 ## Technologies Used
 
 - **Frontend:** React.js, HTML, CSS
-- **Backend:** Node.js, Express.js
+- **Backend:** Java, Node.js
 - **Database:** MySQL
 - **Authentication:** JWT (JSON Web Tokens)
 - **Deployment:** Docker, AWS (Amazon Web Services)
