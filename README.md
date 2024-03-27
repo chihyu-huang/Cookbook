@@ -16,7 +16,6 @@ Cookbook is a web application designed to help users manage and share their reci
 - **Backend:** Java, Node.js
 - **Database:** MySQL
 - **Authentication:** JWT (JSON Web Tokens)
-- **Deployment:** Docker, AWS (Amazon Web Services)
 
 ## Getting Started
 
